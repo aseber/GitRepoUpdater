@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace GitMultiUpdate
@@ -14,9 +13,28 @@ namespace GitMultiUpdate
         [STAThread]
         static void Main()
         {
+            var window = new MainWindow();
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            window.SetDirectoryContent(GetGitDirectories());
+            Application.Run(window);
+        }
+
+        static IEnumerable<GitDirectory> GetGitDirectories()
+        {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var directories = Directory.GetDirectories(currentDirectory);
+            var gitDirectories = new List<GitDirectory>();
+
+            foreach (var directory in directories)
+            {
+                try
+                {
+                    gitDirectories.Add(new GitDirectory(directory));
+                }
+                catch (InvalidGitDirectoryException) { }
+            }
+
+            return gitDirectories;
         }
     }
 }
