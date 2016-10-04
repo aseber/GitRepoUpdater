@@ -11,6 +11,9 @@ namespace ProcessTest
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Testd");
+
             var process = new Process();
             var startInfo = new ProcessStartInfo();
             //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -20,18 +23,16 @@ namespace ProcessTest
             process.StartInfo = startInfo;
             process.Start();
 
-            for (var i = 0; i < 1000; i++)
-            {
-                Console.WriteLine(process.StartTime);
-            }
-
             process.StandardInput.WriteLine("ping www.google.com");
-            process.WaitForInputIdle();
+            process.StandardInput.WriteLine("ping www.google.com");
+            process.StandardInput.WriteLine("ping www.google.com");
+            Console.WriteLine("Test");
+            process.CloseMainWindow();
 
-            while (true)
-            {
-                Console.WriteLine("Ta");
-            }
+            //process.WaitForInputIdle();
+
+            
+
         }
     }
 }

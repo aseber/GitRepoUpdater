@@ -1,126 +1,64 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using System.IO;
+using System;
 
 namespace GitMultiUpdate
 {
     class CommandExecutor
     {
-        private IList<StreamWriter> processInputStreams;
-        private Queue<string> commands = new Queue<string>();
-        private Thread commandExecutorThread;
-        private bool processCommands = true;
+        private Queue<Process> processes = new Queue<Process>();
 
         public CommandExecutor(int maxConcurrentProcesses)
         {
             for (var i = 0; i < maxConcurrentProcesses; i++)
             {
-                processes.Add(CreateProcess());
+                processes.Enqueue(CreateProcess());
             }
-
-            commandExecutorThread = new Thread(GetCommandExecutorDelegate(maxConcurrentProcesses));
-            commandExecutorThread.Start();
         }
 
         ~CommandExecutor()
         {
-            processCommands = false;
-            commandExecutorThread.Abort();
-        }
-
-        public void AddCommand(string command)
-        {
-            commands.Enqueue(command);
-        }
-
-        private Process getAvailableProcess()
-        {
             foreach (var process in processes)
             {
-                process
+                try
+                {
+                    process.CloseMainWindow();
+                } catch (InvalidOperationException) { }
             }
         }
 
-        private ThreadStart GetCommandExecutorDelegate(int maxConcurrentProcesses)
+        public async Task ProcessCommand(string command)
         {
-            return async delegate
-            {
-                var semaphore = new SemaphoreSlim(maxConcurrentProcesses);
-
-                while (processCommands)
-                {
-                    try
-                    {
-                        while (commands.Any())
-                        {
-                            await semaphore.WaitAsync();
-
-                            try
-                            {
-                                await ProcessCommand(null, commands.Dequeue());
-                            }
-                            finally
-                            {
-                                semaphore.Release();
-                            }
-                        }
-                    }
-                    catch (ThreadAbortException)
-                    {
-                        break;
-                    }
-                }
-            };
+            var process = getNextProcess();
+            await ProcessCommand(process, command);
         }
 
-        private async Task ProcessCommand(StreamWriter processWriter, string command)
+        private Process getNextProcess()
         {
-            await processWriter.WriteLineAsync(command);
-            //await process.WaitForExitAsync();
+            var process = processes.Dequeue();
+            processes.Enqueue(process);
+
+            return process;
+        }
+
+        private async Task ProcessCommand(Process process, string command)
+        {
+            await process.StandardInput.WriteLineAsync(command);
         }
 
         private Process CreateProcess()
         {
             var process = new Process();
             var startInfo = new ProcessStartInfo();
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.RedirectStandardInput = true;
+            startInfo.UseShellExecute = false;
             startInfo.FileName = "cmd.exe";
             process.StartInfo = startInfo;
             process.Start();
 
             return process;
         }
-        
-        /*
-         var semaphore = new SemaphoreSlim(concurrentDownloads);
-            var failedDownloads = new List<string>();
-
-            var tasks = urlTuples.Select(async urlTuple =>
-            {
-                await semaphore.WaitAsync();
-
-                try
-                {
-                    var result = await DownloadVideoAsync(urlTuple);
-
-                    if (result != string.Empty)
-                    {
-                        failedDownloads.Add(result);
-                    }
-                }
-                finally
-                {
-                    semaphore.Release();
-                }
-            }).ToArray();
-
-            Task.WaitAll(tasks);
-         
-         */
-
-
     }
 }

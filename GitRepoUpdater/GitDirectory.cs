@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 
 namespace GitMultiUpdate
 {
@@ -18,14 +19,16 @@ namespace GitMultiUpdate
             directoryName = Path.GetFileName(directory);
         }
 
-        public void FetchDirectory()
+        public async Task FetchDirectory()
         {
-
+            await Program.commandExecutor.ProcessCommand($"cd {directory}");
+            await Program.commandExecutor.ProcessCommand("git fetch");
         }
 
-        public void PullDirectory()
+        public async Task PullDirectory()
         {
-
+            await Program.commandExecutor.ProcessCommand($"cd {directory}");
+            await Program.commandExecutor.ProcessCommand("git pull");
         }
 
         private bool IsGitDirectory(string directory)
