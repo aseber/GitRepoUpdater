@@ -30,18 +30,18 @@ namespace GitMultiUpdate
         /// </summary>
         private void InitializeComponent()
         {
-            this.DirectoriesList = new System.Windows.Forms.CheckedListBox();
+            this.directoriesList = new System.Windows.Forms.CheckedListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // DirectoriesList
+            // directoriesList
             // 
-            this.DirectoriesList.CheckOnClick = true;
-            this.DirectoriesList.FormattingEnabled = true;
-            this.DirectoriesList.Location = new System.Drawing.Point(2, 1);
-            this.DirectoriesList.Name = "DirectoriesList";
-            this.DirectoriesList.Size = new System.Drawing.Size(969, 472);
-            this.DirectoriesList.TabIndex = 0;
+            this.directoriesList.CheckOnClick = true;
+            this.directoriesList.FormattingEnabled = true;
+            this.directoriesList.Location = new System.Drawing.Point(2, 1);
+            this.directoriesList.Name = "directoriesList";
+            this.directoriesList.Size = new System.Drawing.Size(969, 472);
+            this.directoriesList.TabIndex = 0;
             // 
             // button1
             // 
@@ -59,7 +59,7 @@ namespace GitMultiUpdate
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(974, 529);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.DirectoriesList);
+            this.Controls.Add(this.directoriesList);
             this.Name = "MainWindow";
             this.Text = "GitRepoUpdater";
             this.ResumeLayout(false);
@@ -68,7 +68,7 @@ namespace GitMultiUpdate
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox DirectoriesList;
+        private System.Windows.Forms.CheckedListBox directoriesList;
         private System.Windows.Forms.Button button1;
     }
 }

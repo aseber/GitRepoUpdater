@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRepoUpdater", "GitRepoUpdater\GitRepoUpdater.csproj", "{D6923B3B-BA96-41A5-ABC0-2CF1E75B493E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessTest", "ProcessTest\ProcessTest.csproj", "{C2BEDFEE-E24C-486D-BD17-ACA374EF0CB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D6923B3B-BA96-41A5-ABC0-2CF1E75B493E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6923B3B-BA96-41A5-ABC0-2CF1E75B493E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6923B3B-BA96-41A5-ABC0-2CF1E75B493E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2BEDFEE-E24C-486D-BD17-ACA374EF0CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2BEDFEE-E24C-486D-BD17-ACA374EF0CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2BEDFEE-E24C-486D-BD17-ACA374EF0CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2BEDFEE-E24C-486D-BD17-ACA374EF0CB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

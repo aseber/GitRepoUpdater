@@ -18,6 +18,16 @@ namespace GitMultiUpdate
             directoryName = Path.GetFileName(directory);
         }
 
+        public void FetchDirectory()
+        {
+
+        }
+
+        public void PullDirectory()
+        {
+
+        }
+
         private bool IsGitDirectory(string directory)
         {
             var subDirectories = Directory.EnumerateDirectories(directory);
@@ -35,7 +45,7 @@ namespace GitMultiUpdate
 
         public override string ToString()
         {
-            return directory;
+            return directoryName;
         }
     }
 }

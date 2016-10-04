@@ -13,32 +13,38 @@ namespace GitMultiUpdate
 
         public void SetDirectoryContent(IEnumerable<GitDirectory> directories)
         {
-            DirectoriesList.Items.Clear();
+            directoriesList.Items.Clear();
 
             foreach (var directory in directories)
             {
-                DirectoriesList.Items.Add(directory, true);
+                directoriesList.Items.Add(directory, true);
             }
 
             Refresh();
         }
 
-        public void printItems()
+        private IEnumerable<GitDirectory> GetCheckedGitDirectories()
         {
-            foreach (var item in DirectoriesList.Items)
-            {
-                Console.WriteLine(item.ToString());
-            }
-        }
+            var objectCollection = directoriesList.CheckedItems;
+            var gitDirectoryCollection = new List<GitDirectory>();
 
-        private IEnumerable<GitDirectory> GetSelectedGitDirectories()
-        {
-            return new List<GitDirectory>();
+            foreach (var obj in objectCollection)
+            {
+                gitDirectoryCollection.Add((GitDirectory) obj);
+            }
+
+            return gitDirectoryCollection;
         }
 
         private void PullAndFetchDirectories(object sender, EventArgs e)
         {
-           
+            var checkedDirectories = GetCheckedGitDirectories();
+
+            foreach (var directory in checkedDirectories)
+            {
+                directory.FetchDirectory();
+                directory.PullDirectory();
+            }
         }
     }
 }
