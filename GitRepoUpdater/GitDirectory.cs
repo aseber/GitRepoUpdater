@@ -21,14 +21,17 @@ namespace GitMultiUpdate
 
         public async Task FetchDirectory()
         {
-            await Program.commandExecutor.ProcessCommand($"cd {directory}");
-            await Program.commandExecutor.ProcessCommand("git fetch");
+            await Program.commandExecutor.ProcessCommand(directory, $"{getGitExe()} fetch");
         }
 
         public async Task PullDirectory()
         {
-            await Program.commandExecutor.ProcessCommand($"cd {directory}");
-            await Program.commandExecutor.ProcessCommand("git pull");
+            await Program.commandExecutor.ProcessCommand(directory, $"{getGitExe()} pull");
+        }
+
+        private string getGitExe()
+        {
+            return "\"C:\\Program Files\\Git\\bin\\git.exe\"";
         }
 
         private bool IsGitDirectory(string directory)

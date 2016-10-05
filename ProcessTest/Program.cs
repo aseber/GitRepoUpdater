@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace ProcessTest
@@ -12,22 +8,28 @@ namespace ProcessTest
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Testd");
+            Console.WriteLine("Test start");
 
-            var process = new Process();
             var startInfo = new ProcessStartInfo();
-            //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            startInfo.RedirectStandardInput = true;
             startInfo.UseShellExecute = false;
-            process.StartInfo = startInfo;
-            process.Start();
+            startInfo.RedirectStandardInput = true;
+            startInfo.RedirectStandardOutput = true;
+            //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            //startInfo.CreateNoWindow = true;
+            var process = Process.Start(startInfo);
 
-            process.StandardInput.WriteLine("ping www.google.com");
-            process.StandardInput.WriteLine("ping www.google.com");
-            process.StandardInput.WriteLine("ping www.google.com");
-            Console.WriteLine("Test");
-            process.CloseMainWindow();
+            Console.WriteLine("Started");
+
+            process.StandardInput.WriteLine(@"cd S:\GitHub\PathFindingVisualization");
+            process.StandardInput.WriteLine("\"C:\\Program Files\\Git\\bin\\git.exe\" pull");
+            process.StandardInput.WriteLine("exit");
+            process.StandardInput.Flush();
+            Console.WriteLine($"\"{process.StandardOutput.ReadToEnd()}\" tatattt");
+            Console.WriteLine("Test end");
+            //process.CloseMainWindow();
+
+            Console.ReadLine();
 
             //process.WaitForInputIdle();
 

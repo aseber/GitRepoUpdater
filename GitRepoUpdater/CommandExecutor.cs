@@ -28,9 +28,10 @@ namespace GitMultiUpdate
             }
         }
 
-        public async Task ProcessCommand(string command)
+        public async Task ProcessCommand(string directory, string command)
         {
             var process = getNextProcess();
+            await ProcessCommand(process, $"cd {directory}");
             await ProcessCommand(process, command);
         }
 
@@ -49,16 +50,14 @@ namespace GitMultiUpdate
 
         private Process CreateProcess()
         {
-            var process = new Process();
             var startInfo = new ProcessStartInfo();
-            //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.RedirectStandardInput = true;
-            startInfo.UseShellExecute = false;
             startInfo.FileName = "cmd.exe";
-            process.StartInfo = startInfo;
-            process.Start();
-
-            return process;
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardInput = true;
+            startInfo.RedirectStandardOutput = true;
+            //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            //startInfo.CreateNoWindow = true;
+            return Process.Start(startInfo);
         }
     }
 }
