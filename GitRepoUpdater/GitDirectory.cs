@@ -19,14 +19,14 @@ namespace GitMultiUpdate
             directoryName = Path.GetFileName(directory);
         }
 
-        public async Task FetchDirectory()
+        public void FetchDirectory()
         {
-            await Program.commandExecutor.ProcessCommand(directory, $"{getGitExe()} fetch");
+            Program.commandExecutor.ProcessCommand(directory, $"{getGitExe()} fetch");
         }
 
-        public async Task PullDirectory()
+        public void PullDirectory()
         {
-            await Program.commandExecutor.ProcessCommand(directory, $"{getGitExe()} pull");
+            Program.commandExecutor.ProcessCommand(directory, $"{getGitExe()} fetch", $"{getGitExe()} pull");
         }
 
         private string getGitExe()

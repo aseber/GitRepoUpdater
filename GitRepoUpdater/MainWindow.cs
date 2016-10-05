@@ -61,13 +61,16 @@ namespace GitMultiUpdate
 
         private void PullAndFetchDirectories(object sender, EventArgs e)
         {
+            Console.WriteLine("Start Pull and Fetch");
             var checkedDirectories = GetCheckedGitDirectories();
 
             foreach (var directory in checkedDirectories)
             {
-                directory.FetchDirectory();
+                //directory.FetchDirectory();
                 directory.PullDirectory();
             }
+
+            Console.WriteLine("End Pull and Fetch");
         }
 
         private void ChangeRootDirectory(object sender, EventArgs e)

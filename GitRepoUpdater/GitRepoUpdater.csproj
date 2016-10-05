@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncProcessExtension.cs" />
     <Compile Include="CommandExecutor.cs" />
     <Compile Include="GitDirectory.cs" />
     <Compile Include="InvalidGitDirectoryException.cs" />
