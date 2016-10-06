@@ -20,7 +20,7 @@ namespace GitMultiUpdate
             directoryName = Path.GetFileName(directory);
         }
 
-        public void FetchDirectory()
+        public Tuple<string, bool> FetchDirectory()
         {
             using (var repository = new Repository(directory))
             {
@@ -31,11 +31,14 @@ namespace GitMultiUpdate
                 catch (LibGit2SharpException e)
                 {
                     Console.WriteLine($"{e.Message} caught on {directory}");
+                    return Tuple.Create(e.Message, false);
                 }
             }
+
+            return Tuple.Create("Successful fetch", true);
         }
 
-        public void PullDirectory()
+        public Tuple<string, bool> PullDirectory()
         {
             using (var repository = new Repository(directory))
             {
@@ -47,8 +50,11 @@ namespace GitMultiUpdate
                 catch (LibGit2SharpException e)
                 {
                     Console.WriteLine($"{e.Message} caught on {directory}");
+                    return Tuple.Create(e.Message, false);
                 }
             }
+
+            return Tuple.Create("Successful fetch", true);
         }
 
         private bool IsGitDirectory(string directory)

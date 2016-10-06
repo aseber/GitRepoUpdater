@@ -65,8 +65,13 @@ namespace GitMultiUpdate
 
             foreach (var directory in checkedDirectories)
             {
-                directory.FetchDirectory();
-                directory.PullDirectory();
+                var fetchResult = directory.FetchDirectory();
+                var pullResult = directory.PullDirectory();
+
+                if (fetchResult.Item2 == false || pullResult.Item2 == false)
+                {
+                    MessageBox.Show(fetchResult.Item1, $"Fetch / Pull failed on \"{directory.directoryName}\" repository", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
