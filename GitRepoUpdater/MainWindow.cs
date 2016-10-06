@@ -6,12 +6,12 @@ using System.Windows.Forms;
 
 namespace GitMultiUpdate
 {
-    public partial class MainWindow : Form
+    public partial class mainWindow : Form
     {
         private FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
         private string rootDirectory;
 
-        public MainWindow(string rootDirectory)
+        public mainWindow(string rootDirectory)
         {
             InitializeComponent();
             folderBrowserDialog.Description = "Select the root directory for your git repositories";
@@ -72,6 +72,8 @@ namespace GitMultiUpdate
                 {
                     MessageBox.Show(fetchResult.Item1, $"Fetch / Pull failed on \"{directory.directoryName}\" repository", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                directoriesList.Refresh(); // Working on making the thing actually update!
             }
         }
 

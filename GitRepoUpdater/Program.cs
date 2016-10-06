@@ -15,7 +15,7 @@ namespace GitMultiUpdate
         {
             var rootDirectory = @"S:/GitHub/";
             //var rootDirectory = Directory.GetCurrentDirectory();
-            var window = new MainWindow(rootDirectory);
+            var window = new mainWindow(rootDirectory);
             Application.EnableVisualStyles();
             Application.Run(window);
         }

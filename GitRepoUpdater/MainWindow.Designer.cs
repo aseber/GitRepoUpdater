@@ -2,7 +2,7 @@
 
 namespace GitMultiUpdate
 {
-    partial class MainWindow
+    partial class mainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace GitMultiUpdate
         private void InitializeComponent()
         {
             this.directoriesList = new System.Windows.Forms.CheckedListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.pullFetchDirectoriesButton = new System.Windows.Forms.Button();
             this.urlTextBox = new System.Windows.Forms.TextBox();
             this.directoryButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -46,16 +46,16 @@ namespace GitMultiUpdate
             this.directoriesList.Size = new System.Drawing.Size(484, 214);
             this.directoriesList.TabIndex = 0;
             // 
-            // button1
+            // pullFetchDirectoriesButton
             // 
-            this.button1.Location = new System.Drawing.Point(0, 245);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(484, 27);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Pull / Fetch Directories";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.PullAndFetchDirectories);
+            this.pullFetchDirectoriesButton.Location = new System.Drawing.Point(0, 245);
+            this.pullFetchDirectoriesButton.Margin = new System.Windows.Forms.Padding(2);
+            this.pullFetchDirectoriesButton.Name = "pullFetchDirectoriesButton";
+            this.pullFetchDirectoriesButton.Size = new System.Drawing.Size(484, 27);
+            this.pullFetchDirectoriesButton.TabIndex = 1;
+            this.pullFetchDirectoriesButton.Text = "Pull / Fetch Directories";
+            this.pullFetchDirectoriesButton.UseVisualStyleBackColor = true;
+            this.pullFetchDirectoriesButton.Click += new System.EventHandler(this.PullAndFetchDirectories);
             // 
             // urlTextBox
             // 
@@ -76,17 +76,17 @@ namespace GitMultiUpdate
             this.directoryButton.UseVisualStyleBackColor = true;
             this.directoryButton.Click += new System.EventHandler(this.ChangeRootDirectory);
             // 
-            // MainWindow
+            // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 272);
             this.Controls.Add(this.directoryButton);
             this.Controls.Add(this.urlTextBox);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pullFetchDirectoriesButton);
             this.Controls.Add(this.directoriesList);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "MainWindow";
+            this.Name = "mainWindow";
             this.Text = "GitRepoUpdater";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -96,7 +96,7 @@ namespace GitMultiUpdate
         #endregion
 
         private System.Windows.Forms.CheckedListBox directoriesList;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button pullFetchDirectoriesButton;
         private System.Windows.Forms.TextBox urlTextBox;
         private System.Windows.Forms.Button directoryButton;
     }
