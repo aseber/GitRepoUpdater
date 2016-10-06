@@ -7,8 +7,6 @@ namespace GitMultiUpdate
 {
     static class Program
     {
-        public static CommandExecutor commandExecutor = new CommandExecutor(2);
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

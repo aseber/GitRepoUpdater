@@ -1,5 +1,6 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using LibGit2Sharp;
+using System;
+using System.IO;
 
 namespace GitMultiUpdate
 {
@@ -21,17 +22,33 @@ namespace GitMultiUpdate
 
         public void FetchDirectory()
         {
-            Program.commandExecutor.ProcessCommand(directory, $"{getGitExe()} fetch");
+            using (var repository = new Repository(directory))
+            {
+                try
+                {
+                    repository.Network.Fetch(repository.Head.Remote);
+                }
+                catch (LibGit2SharpException e)
+                {
+                    Console.WriteLine($"{e.Message} caught on {directory}");
+                }
+            }
         }
 
         public void PullDirectory()
         {
-            Program.commandExecutor.ProcessCommand(directory, $"{getGitExe()} fetch", $"{getGitExe()} pull");
-        }
-
-        private string getGitExe()
-        {
-            return "\"C:\\Program Files\\Git\\bin\\git.exe\"";
+            using (var repository = new Repository(directory))
+            {
+                try
+                {
+                    var pullOptions = new PullOptions();
+                    repository.Network.Pull(new Signature(new Identity("GitRepoUpdater Pull", "aseber@techsouth.cc"), new DateTimeOffset(DateTime.Now)), pullOptions);
+                }
+                catch (LibGit2SharpException e)
+                {
+                    Console.WriteLine($"{e.Message} caught on {directory}");
+                }
+            }
         }
 
         private bool IsGitDirectory(string directory)
