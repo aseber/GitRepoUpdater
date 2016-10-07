@@ -1,9 +1,9 @@
-﻿using GitMultiUpdate.GitDirectoryState;
+﻿using GitRepoUpdater.GitDirectoryState;
 using LibGit2Sharp;
 using System;
 using System.IO;
 
-namespace GitMultiUpdate.Git
+namespace GitRepoUpdater.Git
 {
     public class GitDirectory
     {

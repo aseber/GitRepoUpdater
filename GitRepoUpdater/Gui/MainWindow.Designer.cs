@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GitMultiUpdate.Gui
+namespace GitRepoUpdater.Gui
 {
     partial class mainWindow
     {

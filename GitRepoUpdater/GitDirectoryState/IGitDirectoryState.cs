@@ -1,4 +1,4 @@
-﻿namespace GitMultiUpdate.GitDirectoryState
+﻿namespace GitRepoUpdater.GitDirectoryState
 {
     public interface IGitDirectoryState
     {

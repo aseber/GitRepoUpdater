@@ -1,11 +1,11 @@
-﻿using GitMultiUpdate.Git;
+﻿using GitRepoUpdater.Git;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GitMultiUpdate.Gui
+namespace GitRepoUpdater.Gui
 {
     public partial class mainWindow : Form
     {

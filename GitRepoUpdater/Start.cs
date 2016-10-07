@@ -1,9 +1,9 @@
-﻿using GitMultiUpdate.Gui;
+﻿using GitRepoUpdater.Gui;
 using System;
 using System.IO;
 using System.Windows.Forms;
 
-namespace GitMultiUpdate
+namespace GitRepoUpdater
 {
     static class Start
     {
