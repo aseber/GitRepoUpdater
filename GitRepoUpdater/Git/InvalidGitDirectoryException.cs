@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GitMultiUpdate
+namespace GitMultiUpdate.Git
 {
     class InvalidGitDirectoryException : Exception
     {

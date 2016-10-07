@@ -1,22 +1,20 @@
-﻿using LibGit2Sharp;
+﻿using GitMultiUpdate.GitDirectoryState;
+using LibGit2Sharp;
 using System;
 using System.IO;
 
-namespace GitMultiUpdate
+namespace GitMultiUpdate.Git
 {
     public class GitDirectory
     {
-        public enum directoryState
-        {
-            NotAttempted,
-            Failed,
-            Succeeded
-        }
+        public static readonly IGitDirectoryState NotAttemptedState = new NotAttemptedState();
+        public static readonly IGitDirectoryState SucceededState = new SucceededState();
+        public static readonly IGitDirectoryState FailedState = new FailedState();
 
         public string directory { get; }
         public string directoryName { get; }
-        public directoryState fetchState { get; private set; }
-        public directoryState pullState { get; private set; }
+        public IGitDirectoryState fetchState { get; private set; }
+        public IGitDirectoryState pullState { get; private set; }
 
         public GitDirectory(string directory)
         {
@@ -27,6 +25,8 @@ namespace GitMultiUpdate
 
             this.directory = directory;
             directoryName = Path.GetFileName(directory);
+            fetchState = NotAttemptedState;
+            pullState = NotAttemptedState;
         }
 
         public Tuple<string, bool> FetchDirectory()
@@ -40,12 +40,12 @@ namespace GitMultiUpdate
                 catch (LibGit2SharpException e)
                 {
                     Console.WriteLine($"{e.Message} caught on {directory}");
-                    fetchState = directoryState.Failed;
+                    fetchState = FailedState;
                     return Tuple.Create(e.Message, false);
                 }
             }
 
-            fetchState = directoryState.Succeeded;
+            fetchState = SucceededState;
             return Tuple.Create("Successful fetch", true);
         }
 
@@ -61,60 +61,38 @@ namespace GitMultiUpdate
                 catch (LibGit2SharpException e)
                 {
                     Console.WriteLine($"{e.Message} caught on {directory}");
-                    pullState = directoryState.Failed;
+                    pullState = FailedState;
                     return Tuple.Create(e.Message, false);
                 }
             }
 
-            pullState = directoryState.Succeeded;
+            pullState = SucceededState;
             return Tuple.Create("Successful fetch", true);
         }
 
         private bool IsGitDirectory(string directory)
         {
-            var subDirectories = Directory.EnumerateDirectories(directory);
+            return Repository.IsValid(directory);
+        }
 
-            foreach (var subDirectory in subDirectories)
-            {
-                if (Path.GetFileName(subDirectory) == ".git")
-                {
-                    return true;
-                }
-            }
+        private string GetPullStateString()
+        {
+            return $"Pull: {pullState.GetState()}";
+        }
 
-            return false;
+        private string GetFetchStateString()
+        {
+            return $"Fetch: {fetchState.GetState()}";
         }
 
         public override string ToString()
         {
-            Console.WriteLine("HELLLO");
-
-            var returnString = directoryName;
-
-            if (pullState != directoryState.NotAttempted)
+            if (pullState == NotAttemptedState && fetchState == NotAttemptedState)
             {
-                if (pullState == directoryState.Succeeded)
-                {
-                    returnString += " Pull: Success";
-                } else
-                {
-                    returnString += " Pull: Failed";
-                }
+                return directoryName;
             }
 
-            if (fetchState != directoryState.NotAttempted)
-            {
-                if (fetchState == directoryState.Succeeded)
-                {
-                    returnString += " Fetch: Success";
-                }
-                else
-                {
-                    returnString += " Fetch: Failed";
-                }
-            }
-
-            return directoryName;
+            return $"{directoryName} - {GetPullStateString()} | {GetFetchStateString()}";
         }
     }
 }

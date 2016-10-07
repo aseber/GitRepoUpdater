@@ -1,10 +1,11 @@
-﻿using System;
+﻿using GitMultiUpdate.Git;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GitMultiUpdate
+namespace GitMultiUpdate.Gui
 {
     public partial class mainWindow : Form
     {
@@ -70,11 +71,22 @@ namespace GitMultiUpdate
 
                 if (fetchResult.Item2 == false || pullResult.Item2 == false)
                 {
-                    MessageBox.Show(fetchResult.Item1, $"Fetch / Pull failed on \"{directory.directoryName}\" repository", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var text = fetchResult.Item1;
+                    var caption = $"Fetch / Pull failed on \"{directory.directoryName}\" repository";
+
+                    CreateAsyncMessageBox(text, caption);
                 }
 
-                directoriesList.Refresh(); // Working on making the thing actually update!
+                directoriesList.Refresh();
             }
+        }
+
+        private void CreateAsyncMessageBox(string text, string caption)
+        {
+            Task.Run(() =>
+            {
+                MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            });
         }
 
         private void ChangeRootDirectory(object sender, EventArgs e)

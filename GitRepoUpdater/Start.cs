@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GitMultiUpdate.Gui;
+using System;
 using System.IO;
 using System.Windows.Forms;
 
 namespace GitMultiUpdate
 {
-    static class Program
+    static class Start
     {
         /// <summary>
         /// The main entry point for the application.
@@ -13,7 +13,7 @@ namespace GitMultiUpdate
         [STAThread]
         static void Main()
         {
-            var rootDirectory = @"S:/GitHub/";
+            var rootDirectory = Directory.GetCurrentDirectory();
             //var rootDirectory = Directory.GetCurrentDirectory();
             var window = new mainWindow(rootDirectory);
             Application.EnableVisualStyles();
