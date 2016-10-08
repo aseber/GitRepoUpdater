@@ -22,5 +22,17 @@ namespace GitRepoUpdater.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\")]
+        public string WorkingDirectory {
+            get {
+                return ((string)(this["WorkingDirectory"]));
+            }
+            set {
+                this["WorkingDirectory"] = value;
+            }
+        }
     }
 }

@@ -12,19 +12,19 @@ namespace GitRepoUpdater.Gui
         private FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
         private string rootDirectory;
 
-        public mainWindow(string rootDirectory)
+        public mainWindow(string workingDirectory)
         {
             InitializeComponent();
             folderBrowserDialog.Description = "Select the root directory for your git repositories";
             folderBrowserDialog.ShowNewFolderButton = false;
-            setRootDirectory(rootDirectory);
+            setRootDirectory(workingDirectory);
         }
 
-        private void SetDirectoryContent(string rootDirectory)
+        private void SetDirectoryContent(string workingDirectory)
         {
             directoriesList.Items.Clear();
 
-            var directories = Directory.GetDirectories(rootDirectory);
+            var directories = Directory.GetDirectories(workingDirectory);
 
             foreach (var directory in directories)
             {
@@ -38,11 +38,12 @@ namespace GitRepoUpdater.Gui
             Refresh();
         }
 
-        public void setRootDirectory(string rootDirectory)
+        public void setRootDirectory(string workingDirectory)
         {
-            this.rootDirectory = rootDirectory;
-            urlTextBox.Text = rootDirectory;
-            SetDirectoryContent(rootDirectory);
+            Start.SetWorkingDirectory(workingDirectory);
+            this.rootDirectory = workingDirectory;
+            urlTextBox.Text = workingDirectory;
+            SetDirectoryContent(workingDirectory);
 
             urlTextBox.Refresh();
         }
