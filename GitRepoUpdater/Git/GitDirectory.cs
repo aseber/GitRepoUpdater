@@ -39,7 +39,8 @@ namespace GitRepoUpdater.Git
                 }
                 catch (LibGit2SharpException e)
                 {
-                    Console.WriteLine($"{e.Message} caught on {directory}");
+                    Console.WriteLine("Exception: " + e.GetType());
+
                     fetchState = FailedState;
                     return Tuple.Create(e.Message, false);
                 }
@@ -60,7 +61,6 @@ namespace GitRepoUpdater.Git
                 }
                 catch (LibGit2SharpException e)
                 {
-                    Console.WriteLine($"{e.Message} caught on {directory}");
                     pullState = FailedState;
                     return Tuple.Create(e.Message, false);
                 }
