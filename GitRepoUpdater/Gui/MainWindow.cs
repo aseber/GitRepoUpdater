@@ -10,7 +10,7 @@ namespace GitRepoUpdater.Gui
     public partial class MainWindow : Form
     {
         private FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-        private string rootDirectory;
+        private string workingDirectory;
 
         public MainWindow(string workingDirectory)
         {
@@ -41,7 +41,7 @@ namespace GitRepoUpdater.Gui
         public void setRootDirectory(string workingDirectory)
         {
             Start.SetWorkingDirectory(workingDirectory);
-            this.rootDirectory = workingDirectory;
+            this.workingDirectory = workingDirectory;
             urlTextBox.Text = workingDirectory;
             SetDirectoryContent(workingDirectory);
 
