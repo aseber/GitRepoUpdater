@@ -15,7 +15,7 @@ namespace GitRepoUpdater
         static void Main()
         {
             string workingDirectory = workingDirectory = GetWorkingDirectory();
-            var window = new mainWindow(workingDirectory);
+            var window = new MainWindow(workingDirectory);
             Application.EnableVisualStyles();
             Application.Run(window);
         }

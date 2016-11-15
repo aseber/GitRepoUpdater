@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace GitRepoUpdater.Gui
 {
-    public partial class mainWindow : Form
+    public partial class MainWindow : Form
     {
         private FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
         private string rootDirectory;
 
-        public mainWindow(string workingDirectory)
+        public MainWindow(string workingDirectory)
         {
             InitializeComponent();
             folderBrowserDialog.Description = "Select the root directory for your git repositories";
