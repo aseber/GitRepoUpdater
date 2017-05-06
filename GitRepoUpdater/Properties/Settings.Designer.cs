@@ -34,5 +34,29 @@ namespace GitRepoUpdater.Properties {
                 this["WorkingDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GitUsername {
+            get {
+                return ((string)(this["GitUsername"]));
+            }
+            set {
+                this["GitUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GitPassword {
+            get {
+                return ((string)(this["GitPassword"]));
+            }
+            set {
+                this["GitPassword"] = value;
+            }
+        }
     }
 }
