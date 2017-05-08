@@ -27,7 +27,6 @@ namespace GitRepoUpdater
              
              */
 
-
             string workingDirectory = workingDirectory = GetWorkingDirectory();
             var window = new MainWindow(workingDirectory);
             Application.EnableVisualStyles();
@@ -58,6 +57,14 @@ namespace GitRepoUpdater
             }
 
             return credentials;
+        }
+
+        public static void SetGitCredentials(string username, string password)
+        {
+            Properties.Settings.Default["GitUsername"] = username;
+            Properties.Settings.Default["GitPassword"] = password;
+
+            Properties.Settings.Default.Save();
         }
 
         private static bool ValidGitCredentials(Tuple<string, string> credentials)

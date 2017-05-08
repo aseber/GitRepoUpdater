@@ -1,6 +1,9 @@
 ﻿using GitRepoUpdater.Git;
+using LibGit2Sharp;
+using LibGit2Sharp.Handlers;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -63,12 +66,38 @@ namespace GitRepoUpdater.Gui
 
         private void PullAndFetchDirectories(object sender, EventArgs e)
         {
+            Tuple<string, string> GitCredentials;
+
+            try
+            {
+                GitCredentials = Start.GetGitCredentials();
+            } catch (SettingsPropertyNotFoundException)
+            {
+                var dialog = new LoginDialog();
+                dialog.ShowDialog();
+
+                if (dialog.DialogResult == DialogResult.OK)
+                {
+                    Start.SetGitCredentials(dialog.Username, dialog.Password);
+                }
+
+                GitCredentials = Start.GetGitCredentials();
+            }
+
+            var credentials = new CredentialsHandler((url, usernameFromUrl, types) =>
+                new UsernamePasswordCredentials()
+                {
+                    Username = GitCredentials.Item1,
+                    Password = GitCredentials.Item2
+                });
+
+
             var checkedDirectories = GetCheckedGitDirectories();
 
             foreach (var directory in checkedDirectories)
             {
-                var fetchResult = directory.FetchDirectory();
-                var pullResult = directory.PullDirectory();
+                var fetchResult = directory.FetchDirectory(credentials);
+                var pullResult = directory.PullDirectory(credentials);
 
                 if (fetchResult.Item2 == false || pullResult.Item2 == false)
                 {
